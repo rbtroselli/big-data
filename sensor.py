@@ -20,7 +20,7 @@ def main():
 
 	df_result_2 = si.query_dataframe(df, query_2)
 	save_to_file(df_result_2, output_folder, 'query_2')
-	
+
 	return
 	
 if __name__ == "__main__":

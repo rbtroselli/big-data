@@ -35,7 +35,7 @@ class SparkInterface:
 		df.show(10)
 		return df
 
-def save_to_file(df, output_folder, subfolder):
+def save_to_file(df, output_folder, subfolder, partitions=1):
 	"""
 	Save dataframe to a file. Output is partitioned to one file only, 
 	given the small sized nature of the aggregated results data (.coalesce(1)).
@@ -43,7 +43,7 @@ def save_to_file(df, output_folder, subfolder):
 	separatotor is given as ';', and the output directory is given on hdfs.
 	Takes df and output subfolder as input
 	"""
-	df.coalesce(1).write.mode("overwrite")\
+	df.coalesce(partitions).write.mode("overwrite")\
 		.format('csv')\
 		.option('header','true')\
 		.option('sep',';')\
