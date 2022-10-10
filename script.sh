@@ -20,7 +20,7 @@ rm *.csv
 
 # run python script, file is loaded on hdfs
 echo "########## Starting PySpark script ##########"
-spark-submit sensor_query/sensor.py
+spark-submit sensor_query/sensor_query.py
 
 # read csvs inside query_1 and query_2 folders, format for readability giving csv sep and display sep, show only first 10 rows with head
 echo "########## Printing query 1 results head ##########"
