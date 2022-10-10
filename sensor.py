@@ -1,4 +1,4 @@
-from var import input_file, output_folder, subfolder_1, subfolder_2
+from var import input_file, output_folder
 from queries import query_clean, query_1, query_2
 from spark_interface import SparkInterface, save_to_file
 
