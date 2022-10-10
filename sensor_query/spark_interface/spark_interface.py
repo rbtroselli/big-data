@@ -7,7 +7,8 @@ class SparkInterface:
 
 	def get_spark_session(self):
 		"""
-		Instantiate a SparkSession and return it
+		Instantiate a SparkSession and return it.
+		Also disable INFO logging.
 		"""
 		spark = SparkSession\
 			.builder\
