@@ -1,5 +1,5 @@
-from var import input_file, output_folder
-from queries import query_clean, query_1, query_2
+from resources import input_file, output_folder
+from resources import query_clean, query_1, query_2
 from spark_interface import SparkInterface, save_to_file
 
 def main():
