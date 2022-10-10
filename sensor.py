@@ -1,6 +1,6 @@
 from var import input_file, output_folder
 from queries import query_clean, query_1, query_2
-from spark_interface import SparkInterface
+from spark_interface import SparkInterface, save_to_file
 
 def main():
 	"""
@@ -16,16 +16,11 @@ def main():
 	df = si.query_dataframe(df, query_clean)
 
 	df_result_1 = si.query_dataframe(df, query_1)
-	si.save_to_file(df_result_1, output_folder, 'query_1')
+	save_to_file(df_result_1, output_folder, 'query_1')
 
 	df_result_2 = si.query_dataframe(df, query_2)
-	si.save_to_file(df_result_2, output_folder, 'query_2')
-
-
-	# df = read_sensor_data(spark, input_file)
-	# df = query_dataframe(spark, df, query_clean)
-	# save_to_file(query_dataframe(spark, df, query_1), 'query_1')
-	# save_to_file(query_dataframe(spark, df, query_2), 'query_2')
+	save_to_file(df_result_2, output_folder, 'query_2')
+	
 	return
 	
 if __name__ == "__main__":

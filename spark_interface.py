@@ -1,8 +1,7 @@
 from pyspark.sql import SparkSession
-import pyspark.sql.functions as f
 
 class SparkInterface:
-	def __init__(self, spark_session):
+	def __init__(self, spark_session=None):
 		self.spark_session = self.get_spark_session()
 		pass
 
@@ -36,17 +35,17 @@ class SparkInterface:
 		df.show(10)
 		return df
 
-	def save_to_file(df, output_folder, subfolder):
-		"""
-		Save dataframe to a file. Output is partitioned to one file only, 
-		given the small sized nature of the aggregated results data (.coalesce(1)).
-		Output format is given as csv, header is output as first row in the file, 
-		separatotor is given as ';', and the output directory is given on hdfs.
-		Takes df and output subfolder as input
-		"""
-		df.coalesce(1).write.mode("overwrite")\
-			.format('csv')\
-			.option('header','true')\
-			.option('sep',';')\
-			.save(output_folder+subfolder)
-		return
+def save_to_file(df, output_folder, subfolder):
+	"""
+	Save dataframe to a file. Output is partitioned to one file only, 
+	given the small sized nature of the aggregated results data (.coalesce(1)).
+	Output format is given as csv, header is output as first row in the file, 
+	separatotor is given as ';', and the output directory is given on hdfs.
+	Takes df and output subfolder as input
+	"""
+	df.coalesce(1).write.mode("overwrite")\
+		.format('csv')\
+		.option('header','true')\
+		.option('sep',';')\
+		.save(output_folder+subfolder)
+	return

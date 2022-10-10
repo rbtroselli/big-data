@@ -1,3 +1,9 @@
+# added
+.DS_STORE
+._SUCCESS.crc
+*.crc
+test_data/input/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
