@@ -7,11 +7,11 @@ query_clean = """
         sensor_id,
         substring(timestamp,1,instr(timestamp,'T')-1) as date,
         case 
-            when temperature>100 or temperature<-100 then null
+            when temperature<-100 or temperature>100 then null
             else round(temperature,2)
             end as temperature,
         case 
-            when pressure>121000 or pressure<5600 then null
+            when pressure<80000 or pressure>120000 then null
             else round(pressure,2)
             end as pressure
     from
