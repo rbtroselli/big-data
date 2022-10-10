@@ -1,9 +1,0 @@
-# to create env and install pyspark
-conda create -n bigdata_project_env python=3.8
-conda activate bigdata_project_env
-conda install pyspark
-pip install pyspark
-
-# pyspark requires java runtime
-conda activate bigdata_project_env
-conda install openjdk
