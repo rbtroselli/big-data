@@ -13,6 +13,7 @@ class SparkInterface:
 			.builder\
 			.appName('Python Spark SQL')\
 			.getOrCreate()
+		spark.sparkContext.setLogLevel('WARN')
 		return spark
 
 	def read_csv_file(self, file):
