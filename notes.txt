@@ -1,0 +1,18 @@
+# start hdfs
+./init.sh
+
+# download file, unzip it, remove zip
+wget https://archive.sensor.community/csv_per_month/2022-05/2022-05_bmp180.zip
+unzip *.zip
+rm *.zip
+
+# load file on hdfs, remove csv from local
+hdfs dfs -put ./*.csv hdfs:///sensor_data.txt
+rm *.csv
+
+# run python script, file is loaded on hdfs
+spark-submit sensor.py
+
+# read csvs inside query_1 and query_2 folders, format for readability giving csv sep and display sep, show only first 10 rows with head
+hdfs dfs -cat hdfs:///query_1/*.csv | column -s ';' -t | head -10
+hdfs dfs -cat hdfs:///query_2/*.csv | column -s ';' -t | head -10
