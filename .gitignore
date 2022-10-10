@@ -1,6 +1,7 @@
 # added
 .DS_STORE
 ._SUCCESS.crc
+_SUCCESS
 *.crc
 test_data/input/*
 
