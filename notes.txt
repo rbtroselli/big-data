@@ -16,3 +16,8 @@ spark-submit sensor.py
 # read csvs inside query_1 and query_2 folders, format for readability giving csv sep and display sep, show only first 10 rows with head
 hdfs dfs -cat hdfs:///query_1/*.csv | column -s ';' -t | head -10
 hdfs dfs -cat hdfs:///query_2/*.csv | column -s ';' -t | head -10
+
+# dataframe has been used because...
+# it is still based on rdd and optimized
+# sql query performance is on par with detaframe functions
+# but you loose syntax check while writing
