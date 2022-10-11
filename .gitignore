@@ -5,6 +5,8 @@ _SUCCESS
 *.crc
 test_data/input/*
 project_1/test_data/input/*
+project_2/test_data/input/*
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
