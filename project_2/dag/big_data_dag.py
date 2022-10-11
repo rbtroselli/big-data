@@ -19,16 +19,17 @@ from airflow.operators.bash_operator import BashOperator
 # ~ has to be expanded. works both on Macos and linux
 import os
 import sys
-path = os.path.expanduser('~/airflow/dags/big-data/scripts/')
+path = os.path.expanduser('~/airflow/dags/big-data/')
 sys.path.append(path)
 
 test_flag = True
 
-source_file_path = 'hdfs:///sensor_data.txt'
+input_file = 'hdfs:///sensor_data.txt'
+output_folder = 'hdfs:///results/'
 
 if test_flag:
-    source_file_path = os.curdir
-    print(source_file_path)
+    input_file = f'{path}/test_data/input/2022-05_bmp180.csv'
+    output_folder = f'{path}/test_data/output/'
 
 def test_function(value):
     print(value)
@@ -92,7 +93,7 @@ with DAG(
     testOperator2 = PythonOperator(
         task_id='testOperator2',
         python_callable=test_function,
-        op_args=[source_file_path]
+        op_args=[input_file]
     )
 
     # jobs_load = PythonOperator(
