@@ -1,7 +1,7 @@
-# redefine dataframe keeping only needed columns, 
+# Redefine dataframe keeping only needed columns, 
 # splitting the timestamp and keeping the date, 
 # rounding for readability, and nulling fields for values out of 
-# reasonable ranges (atmospheric pressure in Pa and atmospheric temperature in C)
+# reasonable ranges (atmospheric pressure in Pa and atmospheric temperature in C).
 query_clean = """
     select
         sensor_id,
@@ -18,10 +18,10 @@ query_clean = """
         sensor_read
 """
 
-# first query result to df, get average temperature per sensor
+# First query, get average temperature per sensor
 # the aggregate function ignores nulls, coalesce avoids null fields and gives a cleaner and more 
-# explicit indication when temperature not available for the sensor
-# Column becomes non numeric, this has to be removed in case of subsequent processing with numbers
+# explicit indication when temperature not available for the sensor with N/A.
+# Column becomes non numerical, this has to be removed in case of subsequent processing with numbers.
 query_1 = """
     select
         sensor_id,
@@ -32,10 +32,10 @@ query_1 = """
         1
 """
 
-# second query result to df, get min and max temp and pressure per sensor and day
-# as for previous query, aggregation function ignore nulls, 
+# Second query, get min and max temp and pressure per sensor and day.
+# As for previous query, aggregation function ignore nulls, 
 # and coalesce is used to explicit unavailable measurements. 
-# To be removed if column is needed to be kept numeric 
+# To be removed if column is needed to be kept numerical.
 query_2 = """
     select
         sensor_id,

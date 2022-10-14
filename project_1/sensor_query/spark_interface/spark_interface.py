@@ -43,7 +43,7 @@ def save_to_file(df, output_folder, subfolder, partitions=1):
 	given the small sized nature of the aggregated results data (.coalesce(1)).
 	Output format is given as csv, header is output as first row in the file, 
 	separatotor is given as ';', and the output directory is given on hdfs.
-	Takes df and output subfolder as input
+	Takes df and output subfolder as input.
 	"""
 	df.coalesce(partitions).write.mode("overwrite")\
 		.format('csv')\
