@@ -26,8 +26,9 @@ test_flag = True
 
 input_file = 'hdfs:///sensor_data.txt'
 output_folder = 'hdfs:///results/'
+cd = 'cd ${AIRFLOW_HOME}; cd airflow/dags/big-data/scripts;'
 
-if test_flag:
+if test_flag==True:
     input_file = f'{path}/test_data/input/2022-05_bmp180.csv'
     output_folder = f'{path}/test_data/output/'
 
@@ -54,59 +55,25 @@ with DAG(
     catchup=False, # doesnt work in default args
 ) as dag:
 
-    # # tasks
-    # url_scrape = PythonOperator(
-    #     task_id='url_scrape',
-    #     python_callable=url_scraper,
-    #     op_args=[path],
-    # )
+    startHdfs = BashOperator(
+    task_id='startHdfs',
+    bash_command=cd+'bash start_hdfs.sh'
+    ) 
 
-    dummy_operator_1 = DummyOperator(
-        task_id='dummy_operator_1'
+    downloadFile = BashOperator(
+    task_id='downloadFile',
+    bash_command=cd+f'bash download.sh {date.today().year-1} {date.today().month-1:02d}'
     )
 
-    dummy_operator_2 = DummyOperator(
-        task_id='dummy_operator_2'
-    )
-    
-    testOperator = BashOperator(
-    task_id='testOperator',
-    bash_command='cd ${AIRFLOW_HOME}; cd airflow/dags/big-data/scripts; pwd '
+    extractPushFile = BashOperator(
+    task_id='extractPushFile',
+    bash_command=cd+f'bash extract_push.sh {input_file}'
     )
 
-    downloadOperator = BashOperator(
-    task_id='downloadOperator',
-    bash_command='\
-        cd ${AIRFLOW_HOME};\
-        cd airflow/dags/big-data/scripts;'\
-        +f'bash download.sh {date.today().year-1} {date.today().month-1:02d}'
+    printResults = BashOperator(
+    task_id='printResults',
+    bash_command=cd+f'bash results.sh'
     )
 
-    # extractPushOperator = BashOperator(
-    # task_id='extractPushOperator',
-    # bash_command='\
-    #     cd ${AIRFLOW_HOME};\
-    #     cd airflow/dags/big-data/scripts;'\
-    #     +f'bash extract_push.sh {source_file_path}'
-    # )
-
-    testOperator2 = PythonOperator(
-        task_id='testOperator2',
-        python_callable=test_function,
-        op_args=[input_file]
-    )
-
-    # jobs_load = PythonOperator(
-    #     task_id='jobs_load',
-    #     python_callable=jobs_loader,
-    #     op_args=[path],
-    # )
-
-    # jobs_merge = PythonOperator(
-    #     task_id='jobs_merge',
-    #     python_callable=jobs_merger,
-    #     op_args=[path],
-    # )
-
-    # pipeline
-    dummy_operator_1 >> testOperator >> downloadOperator >> testOperator2 >> dummy_operator_2
+    # dependencies
+    startHdfs >> downloadFile >> extractPushFile >> printResults
