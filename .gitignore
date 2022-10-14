@@ -6,7 +6,8 @@ _SUCCESS
 test_data/input/*
 project_1/test_data/input/*
 project_2/test_data/input/*
-
+project_1/test_data/*
+project_2/test_data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
